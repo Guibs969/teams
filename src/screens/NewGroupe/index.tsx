@@ -3,13 +3,29 @@ import { Header } from "../../components/Header";
 import { HighLight } from "@/src/components/HighLight";
 import { Button } from "@/src/components/Button";
 import { Input } from "@/src/components/Input";
+import { useNavigation } from '@react-navigation/native';
+
+
 
 
 
 export function NewGroupe() {
+
+    const navigation = useNavigation();
+
+    function handleBack(){
+        
+        navigation.navigate('Groupes');
+        
+    }
+
     return (
         <Container>
-            <Header showBackButton/>
+
+           <Header 
+                showBackButton={true}
+                onPress={handleBack} 
+            />
           
             <Content>
                

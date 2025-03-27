@@ -6,17 +6,33 @@ import { HighLight } from '@/src/components/HighLight';
 import { GroupCard } from '@/src/components/GroupCard';
 import { ListEmpty } from '@/src/components/ListEmpty';
 import { Button } from '@/src/components/Button';
+import { useNavigation } from '@react-navigation/native';
 
 export function Groupes() {
   
     const [groupes, setGroupes] = useState <string[]> ([]);
-  
+    const navigation = useNavigation();
+    
+
+    function handleNewGroupe(){
+        
+        navigation.navigate('NewGroupe');
+        
+    }
+
+
+    
   
   return (
 
     
     <Container>
-    <Header />
+    <Header  
+    showBackButton ={false}
+    
+    
+    
+    />
     <HighLight
         title="Times"
         subTitle="Forme o seu time e jogue com seus amigos"
@@ -39,7 +55,7 @@ export function Groupes() {
 
     <Button
         tittle="Criar Time"
-        
+        onPress={handleNewGroupe}
       
     />
 
