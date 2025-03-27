@@ -18,7 +18,7 @@ export default function App  ()  {
       translucent
     
     />
-    { fontsLoaded  ? <Players /> : <Loading />}
+    { fontsLoaded  ? <Players/> : <Loading />}
 
     </>
   );

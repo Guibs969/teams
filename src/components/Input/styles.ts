@@ -12,7 +12,7 @@ export const Container = styled(TextInput)`
     background-color: #121214 ;
     color:rgba(255, 255, 255, 0.25);
     border-radius: 10px;
-    padding: 26px;
+   
 
 
 

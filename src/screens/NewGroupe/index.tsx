@@ -23,6 +23,8 @@ export function NewGroupe() {
 
                         <Input
                         placeholder="Nome do Time"
+                        placeholderTextColor={'rgba(255, 255, 255, 0.25)'}
+                        autoCorrect={false}
                         
                         />
 
