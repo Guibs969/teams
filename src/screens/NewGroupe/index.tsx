@@ -19,6 +19,13 @@ export function NewGroupe() {
         
     }
 
+
+    function handlePlayer(){
+        
+        navigation.navigate('Players');
+        
+    }
+
     return (
         <Container>
 
@@ -46,7 +53,7 @@ export function NewGroupe() {
 
                         <Button
                             tittle="Criar Time"
-                            onPress={() => {}}
+                            onPress={handlePlayer} 
                             />
 
             </Content>

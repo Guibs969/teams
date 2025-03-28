@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export function Groupes() {
   
-    const [groupes, setGroupes] = useState <string[]> ([]);
+    const [groupes, setGroupes] = useState <string[]> (['turma do Bairro']);
     const navigation = useNavigation();
     
 
