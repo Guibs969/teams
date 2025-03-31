@@ -1,16 +1,18 @@
+import { useState } from "react";
 import { Container, Content, Icon } from "./styles";
 import { Header } from "../../components/Header";
 import { HighLight } from "@/src/components/HighLight";
 import { Button } from "@/src/components/Button";
 import { Input } from "@/src/components/Input";
 import { useNavigation } from '@react-navigation/native';
-
+import { groupeCreate } from "@/src/storage/groupe/groupeCreate";
 
 
 
 
 export function NewGroupe() {
 
+    const [groupe, setGroupe] = useState('');
     const navigation = useNavigation();
 
     function handleBack(){
@@ -20,9 +22,15 @@ export function NewGroupe() {
     }
 
 
-    function handlePlayer(){
-        
-        navigation.navigate('Players');
+    async function handlePlayer(){
+        try{
+        await groupeCreate(groupe);
+        navigation.navigate('Players', { groupe });
+    }catch{
+
+        console.log(Error);
+
+    }
         
     }
 
@@ -48,8 +56,10 @@ export function NewGroupe() {
                         placeholder="Nome do Time"
                         placeholderTextColor={'rgba(255, 255, 255, 0.25)'}
                         autoCorrect={false}
+                        onChangeText={setGroupe}
                         
                         />
+                      
 
                         <Button
                             tittle="Criar Time"

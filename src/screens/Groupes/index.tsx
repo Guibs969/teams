@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { Container } from'./styles';
 import { Header } from '@/src/components/Header';
@@ -7,10 +7,11 @@ import { GroupCard } from '@/src/components/GroupCard';
 import { ListEmpty } from '@/src/components/ListEmpty';
 import { Button } from '@/src/components/Button';
 import { useNavigation } from '@react-navigation/native';
+import { groupesGetAll } from '@/src/storage/groupe/groupesGetAll';
 
 export function Groupes() {
   
-    const [groupes, setGroupes] = useState <string[]> (['turma do Bairro']);
+    const [groupes, setGroupes] = useState <string[]> ([ '']);
     const navigation = useNavigation();
     
 
@@ -19,6 +20,27 @@ export function Groupes() {
         navigation.navigate('NewGroupe');
         
     }
+
+    async function fetchGroupes(){
+        try{
+          const data = await groupesGetAll();   
+          setGroupes(data);  
+
+
+        }catch{
+
+            console.log(Error);
+
+
+        }
+
+
+    }
+
+    useEffect(() => {
+        fetchGroupes();
+        console.log('O UseEffect foi executado!!');
+    },[]);
 
 
     

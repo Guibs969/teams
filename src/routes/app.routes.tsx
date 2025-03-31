@@ -1,5 +1,4 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { Groupes } from '../screens/Groupes';
 import { Players } from '../screens/Players';
 import { NewGroupe } from '../screens/NewGroupe';
@@ -16,7 +15,7 @@ export function AppRoutes() {
             <Navigator screenOptions={{ headerShown: false }}>
 
 
-            <Screen
+            <Screen 
                 name='Groupes'
                 component={Groupes}
             />
@@ -35,7 +34,7 @@ export function AppRoutes() {
                 component={Players}
                 
             />
-
+  
 
             </Navigator>
 

@@ -7,19 +7,41 @@ import { Input } from '@/src/components/Input';
 import { Filter } from '@/src/components/Filter';
 import { PlayerCard } from '@/src/components/PlayerCard';
 import { Button } from '@/src/components/Button';
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import { useState } from 'react';
+import { useRoute } from '@react-navigation/native'
+
+
+
+                type RouteParams = {
+
+                    groupe:string;
+
+                }
 
     export function Players() {
         const [team, setTeam] = useState('Time A');
         const [players, setPlayers] = useState<string[]>([]);   
+        const route = useRoute();
+        const {groupe} = route.params;
+        function emptyPlayers(){
+            if  (players.length === 0){
+            
+                Alert.alert("Não há jogadores no time");
+
+                
+
+            } 
+
+        }
+
 
   return (
             <Container>
                 <Header showBackButton/>
 
                 <HighLight
-                    title="Nome do Time"
+                    title={groupe}
                     subTitle="Adicione a galera e sapre os times"
                 /> 
                 <>
@@ -71,9 +93,11 @@ import { useState } from 'react';
          showsVerticalScrollIndicator={false}
          contentContainerStyle={[{ paddingBottom: 100 }, players.length === 0 && { flex: 1 , justifyContent: 'center' , paddingBottom: 880 }]}
      />
+
         
          <Button tittle="Remover Time"
                 type='SECONDARY'
+                onPress={emptyPlayers}
          />
 
 
