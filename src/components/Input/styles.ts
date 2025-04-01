@@ -10,8 +10,10 @@ export const Container = styled(TextInput)`
     width: 82%;
 
     background-color: #121214 ;
-    color:rgba(255, 255, 255, 0.25);
+    color:rgba(248, 244, 244, 0.62);
     border-radius: 10px;
+
+    
    
 
 

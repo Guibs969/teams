@@ -4,35 +4,20 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Container, Icon , ButtonIconTypeStyleProps} from './styles';
 
 type Props = TouchableOpacityProps & {
-
      icon: keyof typeof MaterialIcons.glyphMap;
      type?: ButtonIconTypeStyleProps;
-
 };
 
-
-  export function ButtonIcon({ icon, type = 'PRIMARY', ...rest}: Props) {
-
+export function ButtonIcon({ icon, type = 'PRIMARY', onPress }: Props) {
     return (
-   
-   
-        <Container>
-          
-            < Icon 
-            name={icon}
-            type={type}
-            size={35}
-             />
-           
+        <Container onPress={onPress}>
+            <Icon 
+                name={icon}
+                type={type}
+                size={35}
+            />
         </Container>
-
-
-
-
-
-
-   );
-
+    );
 }
 
 

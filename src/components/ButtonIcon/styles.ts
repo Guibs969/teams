@@ -7,6 +7,7 @@ export type ButtonIconTypeStyleProps = 'PRIMARY' | 'SECONDARY';
 
 type Props = {
     type : ButtonIconTypeStyleProps;
+    onPress: () => void;
 
 };
 

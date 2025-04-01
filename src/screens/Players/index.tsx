@@ -17,7 +17,7 @@ import { useRoute } from '@react-navigation/native'
 
     export function Players() {
 
-        
+        const [newPlayerName, setNewPlayerName] = useState('');
         const [team, setTeam] = useState('Time A');
         const [players, setPlayers] = useState<string[]>([]);   
         const route = useRoute();
@@ -33,6 +33,19 @@ import { useRoute } from '@react-navigation/native'
 
         }
 
+        async function handleAddPlayer(){
+            if(newPlayerName.trim.length === 0) {
+               return  Alert.alert('Nenhum nome foi digitado !!!')
+
+            }
+
+
+        }
+
+
+
+
+
 
   return (
             <Container>
@@ -47,6 +60,8 @@ import { useRoute } from '@react-navigation/native'
 
                 <Form>
                 <Input
+                onChangeText={setNewPlayerName}
+                placeholderTextColor={'white'}
                 placeholder='Nome da pessoa'
                 autoCorrect={false}
                 
@@ -54,6 +69,7 @@ import { useRoute } from '@react-navigation/native'
 
                 <ButtonIcon 
                 icon="add"
+                onPress={handleAddPlayer}
                 
                 />
 
