@@ -13,13 +13,11 @@ import { useRoute } from '@react-navigation/native'
 
 
 
-                type RouteParams = {
 
-                    groupe:string;
-
-                }
 
     export function Players() {
+
+        
         const [team, setTeam] = useState('Time A');
         const [players, setPlayers] = useState<string[]>([]);   
         const route = useRoute();

@@ -6,6 +6,7 @@ import { Button } from "@/src/components/Button";
 import { Input } from "@/src/components/Input";
 import { useNavigation } from '@react-navigation/native';
 import { groupeCreate } from "@/src/storage/groupe/groupeCreate";
+import { Alert } from "react-native";
 
 
 
@@ -24,6 +25,11 @@ export function NewGroupe() {
 
     async function handlePlayer(){
         try{
+            if (groupe.trim().length === 0 ){
+                return Alert.alert('Informe o nome do Grupo !!!')
+
+            }
+
         await groupeCreate(groupe);
         navigation.navigate('Players', { groupe });
     }catch{

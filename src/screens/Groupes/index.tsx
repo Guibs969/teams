@@ -37,12 +37,18 @@ export function Groupes() {
 
     }
 
+
+
+
     useEffect(() => {
         fetchGroupes();
         console.log('O UseEffect foi executado!!');
     },[]);
 
+    function handleOpenGroupe(groupe: string) {
+        navigation.navigate('Players', {groupe});
 
+    }
     
   
   return (
@@ -66,6 +72,7 @@ export function Groupes() {
         renderItem={({ item }) => (
             <GroupCard 
                 title={item}
+                onPress={() => handleOpenGroupe(item)}
             />
         )}
         ListEmptyComponent={() => (
