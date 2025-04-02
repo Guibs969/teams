@@ -1,5 +1,10 @@
-import { Header } from '@/src/components/Header';
+import { useState } from 'react';
+import { useRoute } from '@react-navigation/native'
+import { Alert, FlatList } from 'react-native';
 import { Container, Form, HeaderList, NunberOfPlayers  } from './styles';
+
+
+import { Header } from '@/src/components/Header';
 import { HighLight } from '@/src/components/HighLight';
 import { ButtonIcon } from '@/src/components/ButtonIcon';
 import { ListEmpty } from '@/src/components/ListEmpty';
@@ -7,10 +12,6 @@ import { Input } from '@/src/components/Input';
 import { Filter } from '@/src/components/Filter';
 import { PlayerCard } from '@/src/components/PlayerCard';
 import { Button } from '@/src/components/Button';
-import { Alert, FlatList } from 'react-native';
-import { useState } from 'react';
-import { useRoute } from '@react-navigation/native'
-
 
 
 
@@ -21,7 +22,13 @@ import { useRoute } from '@react-navigation/native'
         const [team, setTeam] = useState('Time A');
         const [players, setPlayers] = useState<string[]>([]);   
         const route = useRoute();
-        const {groupe} = route.params;
+        const { groupe } = route.params as { groupe: string };
+        
+   
+       
+       
+       
+       
         function emptyPlayers(){
             if  (players.length === 0){
             
@@ -32,6 +39,11 @@ import { useRoute } from '@react-navigation/native'
             } 
 
         }
+
+
+
+
+
 
         async function handleAddPlayer(){
             if(newPlayerName.trim.length === 0) {
