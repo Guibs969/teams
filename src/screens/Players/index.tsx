@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useRoute } from '@react-navigation/native'
-import { Alert, FlatList } from 'react-native';
+import { useState, useEffect } from 'react';
+import { useRoute, useNavigation } from '@react-navigation/native'
+import { Alert, FlatList, Keyboard } from 'react-native';
 import { Container, Form, HeaderList, NunberOfPlayers  } from './styles';
 
 
@@ -13,6 +13,12 @@ import { Filter } from '@/src/components/Filter';
 import { PlayerCard } from '@/src/components/PlayerCard';
 import { Button } from '@/src/components/Button';
 
+import { playerAddByGroupe } from '@/src/storage/player/playerAddByGroupe';
+import { playersGetByGroupe } from '@/src/storage/player/playersGetByGroupe';
+import{ playersGetByGroupeAndTeam }from '@/src/storage/player/playersGetByGroupAndTeam';
+import { PlayerStorageDTO } from '@/src/storage/player/PlayerStorageDTO';
+import { playerRemoveByGroupe } from '@/src/storage/player/playerRemoveByGroupe';
+import { groupeRemoveByName } from '@/src/storage/groupe/groupeRemoveByName';
 
 
 
@@ -20,43 +26,160 @@ import { Button } from '@/src/components/Button';
 
         const [newPlayerName, setNewPlayerName] = useState('');
         const [team, setTeam] = useState('Time A');
-        const [players, setPlayers] = useState<string[]>([]);   
+        const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);   
         const route = useRoute();
         const { groupe } = route.params as { groupe: string };
-        
+        const navigation = useNavigation();
    
        
        
        
-       
-        function emptyPlayers(){
-            if  (players.length === 0){
-            
-                Alert.alert("Não há jogadores no time");
-
-                
-
-            } 
-
-        }
-
-
-
-
-
-
         async function handleAddPlayer(){
-            if(newPlayerName.trim.length === 0) {
+            if(newPlayerName.trim().length === 0) {
                return  Alert.alert('Nenhum nome foi digitado !!!')
 
             }
 
+                const newPlayer = {
+                    name:newPlayerName,
+                    time:team 
+
+
+                }
+
+
+                    try{
+
+                        await playerAddByGroupe(newPlayer, groupe);
+                        setNewPlayerName('');
+                        fetchPlayerByTeam();
+                        Keyboard.dismiss();
+                        const players = await playersGetByGroupe(groupe);
+                        console.log(players);
+
+
+                    } catch (error) {
+
+                            console.log(error);
+                            
+
+
+                    }
+
+
+
+        }
+
+        async function  fetchPlayerByTeam(){
+
+            try {
+                const playersByTeam = await  playersGetByGroupeAndTeam(groupe, team);
+                setPlayers(playersByTeam);
+
+
+
+            }catch(error){
+
+                console.log(error);
+                Alert.alert('Nao foi possível carregar os integrantes do grupo !!! ');
+
+
+
+            }
+
+
+
+
+        }
+
+
+        
+        async function removePlayer(playerName: string){
+            try{
+
+                await playerRemoveByGroupe(playerName, groupe);
+                fetchPlayerByTeam();
+
+            }catch(error){
+
+                console.log(error);
+
+                Alert.alert('Erro ao remover');
+
+
+
+
+            }
+
+
+
+
+
+
+        }
+
+        async function groupeRemove(){
+            try{
+
+                await groupeRemoveByName(groupe);
+                navigation.navigate('Groupes');
+
+
+
+            }catch(error){
+
+                    console.log(error);
+                    Alert.alert('Erro :Não foi possível remover GRUPO !!! ');
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+        }
+
+        async function removeGroupe(){
+            Alert.alert(
+                'Remover',
+                'Deseja remover o grupo?',
+
+                [
+                    {text:'Não', style:'cancel'},
+                    {text: 'Sim', onPress:()=>{groupeRemove}}
+
+
+                ]
+
+
+
+            );
+
+
+
 
         }
 
 
 
+    useEffect(()=>{
 
+        fetchPlayerByTeam();
+        console.log('O use Effect foi acionado!');
+
+    },[team]);
 
 
   return (
@@ -73,6 +196,7 @@ import { Button } from '@/src/components/Button';
                 <Form>
                 <Input
                 onChangeText={setNewPlayerName}
+                value={newPlayerName}
                 placeholderTextColor={'white'}
                 placeholder='Nome da pessoa'
                 autoCorrect={false}
@@ -106,11 +230,11 @@ import { Button } from '@/src/components/Button';
 
      <FlatList
          data={players}
-         keyExtractor={(item) => item}
+         keyExtractor={(item) => item.name}
          renderItem={({ item }) => (
              <PlayerCard 
-                 name={item}
-                 onRemove={() => { }}
+                 name={item.name}
+                 onRemove={() => removePlayer(item.name)}
              />
          )}
          ListEmptyComponent={() => (
@@ -123,7 +247,7 @@ import { Button } from '@/src/components/Button';
         
          <Button tittle="Remover Time"
                 type='SECONDARY'
-                onPress={emptyPlayers}
+                onPress={removeGroupe}
          />
 
 
