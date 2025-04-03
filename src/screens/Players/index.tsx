@@ -247,7 +247,7 @@ import { groupeRemoveByName } from '@/src/storage/groupe/groupeRemoveByName';
         
          <Button tittle="Remover Time"
                 type='SECONDARY'
-                onPress={removeGroupe}
+                onPress={groupeRemove}
          />
 
 
